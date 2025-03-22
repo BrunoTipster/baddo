@@ -1,0 +1,260 @@
+/**
+ * Estilos da Área do Cliente
+ * 
+ * @package BadooClone
+ * @version 1.0.0
+ * @author BrunoTipster
+ * @last_modified 2025-03-22 16:19:02
+ */
+
+/* Header do Cliente */
+.client-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #fff;
+    box-shadow: var(--shadow);
+    z-index: 100;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1rem;
+}
+
+.header-brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.header-menu {
+    margin-left: auto;
+    display: flex;
+    gap: 1rem;
+}
+
+/* Conteúdo Principal */
+.client-main {
+    padding-top: 80px;
+    min-height: calc(100vh - 60px);
+}
+
+/* Sistema de Match */
+.match-container {
+    position: relative;
+    height: calc(100vh - 140px);
+    overflow: hidden;
+}
+
+.match-cards {
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: 600px;
+    margin: 0 auto;
+}
+
+.match-card {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+}
+
+.card-photo {
+    height: 70%;
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.card-gradient {
+    height: 100%;
+    background: linear-gradient(
+        to bottom,
+        transparent 50%,
+        rgba(0,0,0,0.8)
+    );
+    border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.card-info {
+    position: absolute;
+    bottom: 30%;
+    left: 0;
+    right: 0;
+    padding: 1rem;
+    color: #fff;
+}
+
+.card-bio {
+    padding: 1rem;
+    height: 30%;
+    overflow-y: auto;
+}
+
+.card-actions {
+    position: absolute;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0 1rem;
+}
+
+/* Chat */
+.chat-container {
+    height: calc(100vh - 140px);
+    display: flex;
+    gap: 1rem;
+}
+
+.chat-sidebar {
+    width: 300px;
+    background-color: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.chat-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+.chat-header {
+    padding: 1rem;
+    border-bottom: 1px solid var(--gray-light);
+}
+
+.chat-messages {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+.message {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.message.mine {
+    flex-direction: row-reverse;
+}
+
+.message-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin: 0 0.5rem;
+}
+
+.message-content {
+    max-width: 70%;
+}
+
+.message-bubble {
+    padding: 0.75rem 1rem;
+    background-color: var(--light);
+    border-radius: 1rem;
+}
+
+.message.mine .message-bubble {
+    background-color: var(--primary);
+    color: #fff;
+}
+
+.chat-input {
+    padding: 1rem;
+    border-top: 1px solid var(--gray-light);
+}
+
+/* Perfil */
+.profile-header {
+    position: relative;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+}
+
+.profile-avatar {
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    box-shadow: var(--shadow);
+}
+
+.profile-content {
+    padding-top: 70px;
+    text-align: center;
+}
+
+.profile-name {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.profile-bio {
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.profile-photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .header-nav {
+        padding: 0 0.5rem;
+    }
+
+    .match-cards {
+        height: 500px;
+    }
+
+    .chat-container {
+        flex-direction: column;
+    }
+
+    .chat-sidebar {
+        width: 100%;
+        height: 60px;
+    }
+
+    .profile-header {
+        height: 200px;
+    }
+
+    .profile-avatar {
+        width: 100px;
+        height: 100px;
+        bottom: -30px;
+    }
+
+    .profile-content {
+        padding-top: 50px;
+    }
+}

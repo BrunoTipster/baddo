@@ -1,0 +1,1567 @@
+[22-Mar-2025 15:44:29 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Undefined constant "ITEMS_PER_PAGE" in C:\laragon\www\badoo-clone\client\search.php:50
+Stack trace:
+#0 {main}
+  thrown in C:\laragon\www\badoo-clone\client\search.php on line 50
+[22-Mar-2025 15:44:37 America/Sao_Paulo] PHP Fatal error:  Uncaught Error: Undefined constant "ITEMS_PER_PAGE" in C:\laragon\www\badoo-clone\client\search.php:50
+Stack trace:
+#0 {main}
+  thrown in C:\laragon\www\badoo-clone\client\search.php on line 50
+[22-Mar-2025 15:50:10 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 15:50:10 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 15:50:10 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 15:50:12 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 15:50:12 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 15:50:12 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 15:50:34 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND u.gender = ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 15:50:34 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => M
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 1
+    [15] => 100
+    [16] => 0
+    [17] => 12
+)
+
+[22-Mar-2025 15:50:34 America/Sao_Paulo] Found Users: 0
+[22-Mar-2025 15:50:36 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND u.gender = ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 15:50:36 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => F
+    [10] => M
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 1
+    [15] => 100
+    [16] => 0
+    [17] => 12
+)
+
+[22-Mar-2025 15:50:36 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 15:50:55 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND u.gender = ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 15:50:55 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => F
+    [10] => M
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 1
+    [15] => 100
+    [16] => 0
+    [17] => 12
+)
+
+[22-Mar-2025 15:50:55 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 15:51:00 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND u.gender = ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 15:51:00 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => M
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 1
+    [15] => 100
+    [16] => 0
+    [17] => 12
+)
+
+[22-Mar-2025 15:51:00 America/Sao_Paulo] Found Users: 0
+[22-Mar-2025 15:51:02 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND u.gender = ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 15:51:02 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => M
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 1
+    [15] => 100
+    [16] => 0
+    [17] => 12
+)
+
+[22-Mar-2025 15:51:02 America/Sao_Paulo] Found Users: 0
+[22-Mar-2025 15:51:04 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND u.gender = ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 15:51:04 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => F
+    [10] => M
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 1
+    [15] => 100
+    [16] => 0
+    [17] => 12
+)
+
+[22-Mar-2025 15:51:04 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 15:51:33 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND u.gender = ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 15:51:33 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => O
+    [10] => M
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 1
+    [15] => 100
+    [16] => 0
+    [17] => 12
+)
+
+[22-Mar-2025 15:51:33 America/Sao_Paulo] Found Users: 0
+[22-Mar-2025 15:51:37 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 15:51:37 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 15:51:37 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in C:\laragon\www\badoo-clone\config\config.php on line 185
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in C:\laragon\www\badoo-clone\config\config.php on line 186
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in C:\laragon\www\badoo-clone\config\config.php on line 187
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in C:\laragon\www\badoo-clone\config\config.php on line 188
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in C:\laragon\www\badoo-clone\config\config.php on line 189
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in C:\laragon\www\badoo-clone\config\config.php on line 190
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in C:\laragon\www\badoo-clone\config\config.php on line 191
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in C:\laragon\www\badoo-clone\config\config.php on line 192
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  ini_set(): Session ini settings cannot be changed when a session is active in C:\laragon\www\badoo-clone\config\config.php on line 193
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  Constant DB_HOST already defined in C:\laragon\www\badoo-clone\config\database.php on line 17
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  Constant DB_USER already defined in C:\laragon\www\badoo-clone\config\database.php on line 18
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  Constant DB_PASS already defined in C:\laragon\www\badoo-clone\config\database.php on line 19
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  Constant DB_NAME already defined in C:\laragon\www\badoo-clone\config\database.php on line 20
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  Constant DB_CHARSET already defined in C:\laragon\www\badoo-clone\config\database.php on line 22
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  Constant DB_COLLATE already defined in C:\laragon\www\badoo-clone\config\database.php on line 23
+[22-Mar-2025 15:55:12 America/Sao_Paulo] PHP Warning:  Constant DB_PREFIX already defined in C:\laragon\www\badoo-clone\config\database.php on line 24
+[22-Mar-2025 19:00:59 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:00:59 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:00:59 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 19:01:07 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:01:07 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:01:07 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 19:01:20 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:01:20 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 60
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:01:20 America/Sao_Paulo] Found Users: 0
+[22-Mar-2025 19:01:25 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:01:25 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 50
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:01:25 America/Sao_Paulo] Found Users: 0
+[22-Mar-2025 19:01:31 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:01:31 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:01:31 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 19:01:52 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:01:52 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:01:52 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 19:01:54 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:01:54 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:01:54 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 19:01:55 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:01:55 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:01:55 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 19:01:55 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:01:55 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:01:55 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 19:01:56 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:01:56 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:01:56 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 19:01:56 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:01:56 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:01:56 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 19:01:57 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:01:57 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:01:57 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 19:03:35 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:03:35 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 50
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:03:35 America/Sao_Paulo] Found Users: 1
+[22-Mar-2025 19:03:38 America/Sao_Paulo] Search Query: 
+        SELECT DISTINCT
+            u.*,
+            TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) as age,
+            (
+                6371 * acos(
+                    cos(radians(?)) * 
+                    cos(radians(COALESCE(u.latitude, ?))) * 
+                    cos(radians(COALESCE(u.longitude, ?)) - radians(?)) + 
+                    sin(radians(?)) * 
+                    sin(radians(COALESCE(u.latitude, ?)))
+                )
+            ) as distance,
+            IF(u.is_online = 1 OR u.last_active >= DATE_SUB(NOW(), INTERVAL 5 MINUTE), 1, 0) as is_really_online,
+            IF(u.avatar != 'default.jpg' OR EXISTS(SELECT 1 FROM user_photos WHERE user_id = u.id), 1, 0) as has_photos
+        FROM users u
+        LEFT JOIN user_preferences p ON p.user_id = u.id
+        WHERE u.id != ?
+        AND u.status = 'active'
+     AND TIMESTAMPDIFF(YEAR, u.birth_date, CURDATE()) BETWEEN ? AND ? AND (
+        p.interested_in = ? 
+        OR p.interested_in = 'B'
+        OR p.interested_in IS NULL
+    )
+        AND NOT EXISTS (
+            SELECT 1 FROM blocks 
+            WHERE (blocker_id = ? AND blocked_id = u.id)
+            OR (blocker_id = u.id AND blocked_id = ?)
+        )
+    
+        AND NOT EXISTS (
+            SELECT 1 FROM matches 
+            WHERE (user1_id = ? AND user2_id = u.id)
+            OR (user1_id = u.id AND user2_id = ?)
+        )
+     HAVING distance <= ? ORDER BY 
+        u.is_featured DESC,
+        is_really_online DESC,
+        has_photos DESC,
+        u.updated_at DESC,
+        distance ASC
+     LIMIT ?, ?
+[22-Mar-2025 19:03:38 America/Sao_Paulo] Search Params: Array
+(
+    [0] => -23.55052
+    [1] => -23.55052
+    [2] => -46.633308
+    [3] => -46.633308
+    [4] => -23.55052
+    [5] => -23.55052
+    [6] => 1
+    [7] => 18
+    [8] => 99
+    [9] => M
+    [10] => 1
+    [11] => 1
+    [12] => 1
+    [13] => 1
+    [14] => 100
+    [15] => 0
+    [16] => 12
+)
+
+[22-Mar-2025 19:03:38 America/Sao_Paulo] Found Users: 1
